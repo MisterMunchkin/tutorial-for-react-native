@@ -41,14 +41,8 @@ export function Pokemon({name}: PokemonProps) {
 
   }
 
-  return <View>
-    <ScrollView
-      contentContainerStyle={{
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-      }}
-    >
+  return <View className="h-full w-full">
+    <ScrollView className="flex flex-col">
       {/* Post */}
       <View>
         <Text>Pokemon data</Text>
@@ -73,37 +67,37 @@ export function Pokemon({name}: PokemonProps) {
           dto={DummyComments}
         />
       </View>
-    
-      <KeyboardAvoidingView>
-        <View
+    </ScrollView>
+    <KeyboardAvoidingView className="p-4">
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          bottom: 20,
+        }}
+      >
+        <TextInput
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            bottom: 20,
+            height: '100%',
+            marginRight: 12,
+            borderWidth: 1
+          }}
+          placeholder="Add comment"
+          onChangeText={setCommentInput}
+          value={commentInput}
+        />
+        <TouchableOpacity
+          onPress={handleAddComment}
+          style={{
+            padding: 15,
+            backgroundColor: 'purple'
           }}
         >
-          <TextInput
-            style={{
-              height: '100%',
-              marginRight: 12,
-              borderWidth: 1
-            }}
-            placeholder="Add comment"
-            onChangeText={setCommentInput}
-            value={commentInput}
-          />
-          <TouchableOpacity
-            onPress={handleAddComment}
-            style={{
-              padding: 15,
-              backgroundColor: 'purple'
-            }}
-          >
-            <Text>Reply</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+          <Text>Reply</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
+
   </View>
 }
 

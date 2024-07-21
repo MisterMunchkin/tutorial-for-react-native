@@ -1,4 +1,4 @@
-import { PaginationCommentDto } from "@/types/comment.type";
+import { PaginationCommentDto, ReadCommentDto } from "@/types/comment.type";
 
 export const DummyComments: PaginationCommentDto = {
   total: 100,
@@ -29,3 +29,20 @@ export const DummyComments: PaginationCommentDto = {
     }
   ]
 }
+
+export const DummyNested: ReadCommentDto[] = [
+  {
+    id: 3,
+    text: 'Nexted First comment',
+    user: 'Robin',
+    createdAt: new Date(),
+    parent: 1
+  },
+  {
+    id: 4,
+    text: 'Nexted 2 comment',
+    user: 'Robin',
+    createdAt: new Date(),
+    parent: 1
+  }
+]
