@@ -1,4 +1,5 @@
 import { PaginationCommentDto, ReadCommentDto } from "@/types/comment.type";
+import { FlashList } from "@shopify/flash-list";
 import { useEffect } from "react";
 import { View, Text } from "react-native";
 
@@ -14,9 +15,13 @@ const CommentSection = (props: Props) => {
 
   return <View>
     <Text>Total Comments: {total}</Text>
-    {comments && comments.length > 0 && comments.map((comment) => (
-      
-    ))}
+    {comments && comments.length > 0 && (
+      <FlashList
+        data={comments}
+        renderItem={({item}) => <Text>{item.text}</Text>}
+        estimatedItemSize={200}
+      />
+    )}
   </View>
 }
 

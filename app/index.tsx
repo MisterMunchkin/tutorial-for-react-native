@@ -1,8 +1,9 @@
 import { getPokemon } from "@/api/test-api";
-import { Comment } from "@/types/comment.type";
+import CommentSection from "@/components/CommentSection";
+import { DummyComments } from "@/constants/DummyComments";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Text, View, StyleSheet, Button, TextInput, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TextInput, ScrollView, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 
 const queryClient = new QueryClient();
 
@@ -40,10 +41,14 @@ export function Pokemon({name}: PokemonProps) {
 
   }
 
-  return <View style={{
-    flexDirection: 'column'
-  }}>
-    <ScrollView>
+  return <View>
+    <ScrollView
+      contentContainerStyle={{
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+      }}
+    >
       {/* Post */}
       <View>
         <Text>Pokemon data</Text>
@@ -64,28 +69,41 @@ export function Pokemon({name}: PokemonProps) {
       {/* Comments */}
       <View
       >
-        <Text>Comments</Text>
+        <CommentSection 
+          dto={DummyComments}
+        />
       </View>
-    </ScrollView>
     
-    <View
-      style={{
-        position: 'absolute',
-        bottom: 0,
-        marginHorizontal: 'auto'
-      }}
-    >
-      <TextInput
-        placeholder="Add comment"
-        onChangeText={setCommentInput}
-        value={commentInput}
-      />
-      <TouchableOpacity
-        onPress={handleAddComment}
-      >
-        <Text>Reply</Text>
-      </TouchableOpacity>
-    </View>
+      <KeyboardAvoidingView>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            bottom: 20,
+          }}
+        >
+          <TextInput
+            style={{
+              height: '100%',
+              marginRight: 12,
+              borderWidth: 1
+            }}
+            placeholder="Add comment"
+            onChangeText={setCommentInput}
+            value={commentInput}
+          />
+          <TouchableOpacity
+            onPress={handleAddComment}
+            style={{
+              padding: 15,
+              backgroundColor: 'purple'
+            }}
+          >
+            <Text>Reply</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   </View>
 }
 
