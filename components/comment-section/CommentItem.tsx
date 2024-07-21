@@ -1,27 +1,9 @@
-import { PaginationCommentDto, ReadCommentDto } from "@/types/comment.type";
-import { FlashList } from "@shopify/flash-list";
-import { useEffect, useMemo, useState } from "react";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
-import { Collapsible } from "./Collapsible";
 import { DummyNested } from "@/constants/DummyComments";
+import { ReadCommentDto } from "@/types/comment.type";
+import { FlashList } from "@shopify/flash-list";
+import { useState, useEffect } from "react";
+import { View, TouchableOpacity, TextInput, Text } from "react-native";
 
-type Props = {
-  dto: PaginationCommentDto;
-};
-const CommentSection = (props: Props) => {
-  const {dto: {data: comments, total}} = props;
-
-  return <View>
-    <Text className="font-bold pb-4">Total Comments: {total}</Text>
-    {comments && comments.length > 0 && (
-      <FlashList
-        data={comments}
-        renderItem={({item}) => <CommentItem text={item.text} commentId={item.id} />}
-        estimatedItemSize={97}
-      />
-    )}
-  </View>
-}
 
 const fetchNested = async (
   parentCommentId: number, 
@@ -36,8 +18,6 @@ const fetchNested = async (
   }
 }
 
-export default CommentSection;
-
 type CommentItemProps = {
   text: string;
   commentId: number;
@@ -51,6 +31,7 @@ const CommentItem = (props: CommentItemProps) => {
 
   useEffect(() => {
     if (expandNestedComments) {
+      setIsFetchingComments(true);
       fetchNested(props.commentId, setNestedComments, setIsFetchingComments);
     }
   }, [expandNestedComments])
@@ -101,3 +82,5 @@ const CommentItem = (props: CommentItemProps) => {
     )}
   </View>
 }
+
+export default CommentItem;
